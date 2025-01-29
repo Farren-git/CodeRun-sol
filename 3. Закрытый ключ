@@ -1,0 +1,41 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+long long gcd(long long a, long long b) { //расчет НОД'а
+    while (b) {
+        a %= b;
+        swap(a, b);
+    }
+    return a;
+}
+
+int main() {
+    long long x, y;
+    cin >> x >> y;
+
+    if (y % x != 0) {
+        cout << 0 << endl;
+        return 0;
+    }
+
+    long long product = y / x;
+    long long count = 0;
+
+    for (long long p = 1; p <= sqrt(product); ++p) {
+        if (product % p == 0) {
+            long long q = product / p;
+            if (gcd(p, q) == 1) {
+                if (p == q)
+                    count++;
+                else
+                    count += 2;
+            }
+        }
+    }
+
+    cout << count << endl;
+
+    return 0;
+}
